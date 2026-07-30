@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Smart Event Management Portal — Discover and book tickets for upcoming events." />
+  <title>Smart Event Portal — Discover Events</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand">⚡ Smart Events</a>
+      <div class="navbar-links" id="navbar-links"></div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Discover Amazing Events</h1>
+      <p>Find and book tickets for conferences, workshops, concerts, and more — all in one place.</p>
+    </div>
+  </section>
+
+  <!-- Event Listing -->
+  <main class="container">
+    <h2 class="section-title">Upcoming Events</h2>
+    <p class="section-subtitle">Browse what's happening next</p>
+    <div id="alert-container"></div>
+    <div id="events-container" class="event-grid">
+      <div class="spinner"></div>
+    </div>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

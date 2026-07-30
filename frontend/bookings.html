@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Bookings — Smart Event Portal</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="navbar-brand">⚡ Smart Events</a>
+            <div class="navbar-links" id="navbar-links"></div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h2 class="section-title">My Bookings</h2>
+        <p class="section-subtitle">Your ticket history</p>
+        <div id="alert-container"></div>
+        <div id="bookings-container" class="bookings-list">
+            <div class="spinner"></div>
+        </div>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/bookings.js"></script>
+</body>
+
+</html>
