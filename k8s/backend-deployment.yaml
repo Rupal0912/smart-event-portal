@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: smart-event-backend:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_URI
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+              
+          # --- ZERO-DOWNTIME DEPLOYMENT PROBES EXPLANATION ---
+          
+          # Readiness Probe: 
+          # Determines if the pod is currently able to handle incoming traffic.
+          # During a new deployment, Kubernetes will NOT send traffic to this new pod 
+          # until the readiness probe succeeds. If it fails, the pod is removed from 
+          # the Service endpoints. This ensures users never experience downtime or errors 
+          # from traffic routed to a pod that is still initializing (e.g. connecting to Atlas MongoDB).
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            
+          # Liveness Probe: 
+          # Determines if the pod is alive or if it needs to be restarted.
+          # If an app gets deadlocked or stuck in an infinite loop, it might still 
+          # respond to readiness checks with timeouts, but a failed liveness probe 
+          # tells Kubernetes to kill the pod and start a fresh one, self-healing the application.
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
