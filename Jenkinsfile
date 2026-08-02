@@ -31,7 +31,10 @@ pipeline {
                 // It is better to fail fast here rather than wasting time building Docker images for broken code.
                 dir('backend') {
                     sh 'npm install'
-                    withCredentials([string(credentialsId: 'mongo-uri-secret', variable: 'MONGO_URI')]) {
+                    withCredentials([
+                        string(credentialsId: 'mongo-uri-secret', variable: 'MONGO_URI'),
+                        string(credentialsId: 'jwt-secret', variable: 'JWT_SECRET')
+                    ]) {
                         sh 'npm test'
                     }
                 }
