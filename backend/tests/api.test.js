@@ -7,6 +7,8 @@ const User = require('../models/User');
 beforeAll(async () => {
     const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/smart-event-portal-test';
     await mongoose.connect(mongoUri);
+    // Ensure idempotency for tests
+    await User.deleteMany({ email: 'testuser@jest.com' });
 });
 
 // Clean up test data and close connection after tests

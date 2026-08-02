@@ -29,6 +29,9 @@ const register = async (req, res) => {
             token: generateToken(user._id),
         });
     } catch (error) {
+        if (error.code === 11000) {
+            return res.status(400).json({ message: 'Email already registered' });
+        }
         res.status(500).json({ message: error.message });
     }
 };
