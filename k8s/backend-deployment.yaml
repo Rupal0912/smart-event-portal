@@ -15,7 +15,7 @@ spec:
       containers:
         - name: backend
           image: smart-event-backend:latest
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
           env:
